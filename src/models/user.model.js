@@ -11,6 +11,7 @@ const userSchema = new Schema({
         enum: ["farm_admin", "farm_manager", "farm_technician", "end_user"],
         default: "end_user",
     },
+    refreshToken: { type: String }
 }, { timestamps: true })
 
 userSchema.pre("save", async function (next) {
