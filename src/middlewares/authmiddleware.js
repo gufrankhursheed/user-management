@@ -16,6 +16,13 @@ export const verifyJWT = async (req, res, next) => {
         req.user = user;
         next();
     } catch (error) {
-        res.status(401).json({ message: error?.message || "Invalid access token"});   
+        res.status(401).json({ message: error?.message || "Invalid access token" });
     }
 }
+
+export const authorize = (...roles) => (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+        return res.status(403).json({ message: "Access Denied" });
+    }
+    next();
+};
